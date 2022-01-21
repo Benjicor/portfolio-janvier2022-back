@@ -1,4 +1,3 @@
-// Exemple content of this file //
+const UserController = require("./users.controllers");
 
-// const ExampleController = require("./example.controllers");
-// module.exports = { ExampleController };
+module.exports = { UserController };

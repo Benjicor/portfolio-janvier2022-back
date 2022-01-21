@@ -1,5 +1,5 @@
 const { closeConnection } = require("../db-connection");
-const app = require("../server");
+const app = require("../src");
 
 const closeApp = () =>
   new Promise((resolve, reject) => {

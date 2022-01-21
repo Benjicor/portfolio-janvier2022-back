@@ -1,4 +1,3 @@
-// Exemple content of this file //
+const User = require("./users.model");
 
-// const exampleModels = require("./Example.models");
-// module.exports = { exampleModels };
+module.exports = { User };

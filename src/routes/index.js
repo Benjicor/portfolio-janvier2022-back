@@ -1,8 +1,6 @@
 const mainRouter = require("express").Router();
+const usersRouter = require("./users.routes");
 
-// Exemple content of this file //
-
-// const exempleRouter = require("./exemple.routes");
-// mainRouter.use("/exemple", exempleRouter);
+mainRouter.use("/users", usersRouter);
 
 module.exports = mainRouter;
