@@ -1,17 +1,19 @@
 const filesRouter = require("express").Router();
 
 const { FilesController } = require("../controllers");
-const { validatePostFiles } = require("../middleware/Files");
-// const { validatePostFiles } = require("../middleware/Files");
+const { validatePutFile, validatePostFile } = require("../middleware/Files");
 
-//GET
+// GET
 filesRouter.get("/", FilesController.findMany);
 filesRouter.get("/:id", FilesController.findOneById);
 
-//POST
-filesRouter.post("/", validatePostFiles, FilesController.createOne);
+// POST
+filesRouter.post("/", validatePostFile, FilesController.createOne);
 
-//DELETE
+// PUT
+filesRouter.put("/:id", validatePutFile, FilesController.updateOneById);
+
+// DELETE
 filesRouter.delete("/:id", FilesController.removeOneById);
 
 module.exports = filesRouter;

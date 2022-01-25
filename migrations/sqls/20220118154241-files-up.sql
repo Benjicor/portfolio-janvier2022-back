@@ -5,6 +5,6 @@ CREATE TABLE `files` (
     `start_date` DATETIME  NOT NULL ,
     `end_date` DATETIME  NOT NULL ,
     `create_time` DATETIME  NOT NULL DEFAULT current_timestamp(),
-    `src` VARCHAR(255)  NULL ,
-    `description` TEXT  NULL
+    `src` VARCHAR(255) NULL ,
+    `description` TEXT NOT NULL
 );

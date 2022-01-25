@@ -1,9 +1,9 @@
-const { Files } = require("../models");
+const { File } = require("../models");
 
 // Méthode qui permet de recuperer tous les fichiers
 const findMany = async (req, res) => {
   try {
-    const [results] = await Files.findMany();
+    const [results] = await File.findMany();
     res.json(results);
   } catch (err) {
     res.status(500).send(err.message);
@@ -14,7 +14,7 @@ const findMany = async (req, res) => {
 const findOneById = async (req, res) => {
   try {
     const { id } = req.params;
-    const [[results]] = await Files.findOneById(id);
+    const [[results]] = await File.findOneById(id);
     if (!results) return res.status(404).send();
     res.json(results);
   } catch (err) {
@@ -25,11 +25,11 @@ const findOneById = async (req, res) => {
 // Méthode qui permet de créer un fichier
 const createOne = async (req, res) => {
   try {
-    const [result] = await Files.createOne(req.filesInformation);
-    const [[filesCreated]] = await Files.findOneById(result.insertId);
+    const [result] = await File.createOne(req.fileInformation);
+    const [[fileCreated]] = await File.findOneById(result.insertId);
     return res.status(201).json({
-      message: "Votre fichier à bien été modifier",
-      files: filesCreated,
+      message: "Votre fichier à bien été créer",
+      file: fileCreated,
     });
   } catch (err) {
     return res.status(500).json(err.message);
@@ -39,9 +39,9 @@ const createOne = async (req, res) => {
 // Méthode qui permet de mettre a jour les informations d'un fichier par son ID
 const updateOneById = async (req, res) => {
   try {
-    await Files.updateOneById(req.filesInformation, req.params.id);
-    const [[files]] = await Files.findOneById(req.params.id);
-    return res.status(200).json({ message: "Le fichier à bien été modifier", files });
+    await File.updateOneById(req.fileInformation, req.params.id);
+    const [[file]] = await File.findOneById(req.params.id);
+    return res.status(200).json({ message: "Le fichier à bien été modifier", file });
   } catch (err) {
     res.status(500).send(err.message);
   }
@@ -50,7 +50,7 @@ const updateOneById = async (req, res) => {
 // Méthode qui permet de supprimer un fichier par son ID
 const removeOneById = async (req, res) => {
   try {
-    const [result] = await Files.deleteOneById(req.params.id);
+    const [result] = await File.deleteOneById(req.params.id);
     if (!result.affectedRows) {
       return res.status(404).send();
     }

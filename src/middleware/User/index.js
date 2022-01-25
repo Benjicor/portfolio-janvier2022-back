@@ -39,13 +39,13 @@ const validatePostUser = async (req, res, next) => {
   try {
     const { firstname, lastname, username, email, password } = req.body;
     const user = { firstname, lastname, username, email, password };
-    const [[userExist]] = await User.findOneByEmail(email);
-    if (userExist) return res.sendStatus(422);
-    if (firstname && lastname && email && password) {
+    const [userExist] = await User.findOneByEmail(email);
+    if (userExist.length) return res.sendStatus(422);
+    if (firstname && lastname && email && password && username) {
       req.userInformation = user;
       next();
     } else {
-      return res.status(400).json({ message: "Toutes les valeurs nécessaires a l'inscription sont requises" });
+      return res.status(422).json({ message: "Toutes les valeurs nécessaires a l'inscription sont requises" });
     }
   } catch (err) {
     return res.send(err.message);

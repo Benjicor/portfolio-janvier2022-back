@@ -27,15 +27,14 @@ describe("Users API Endpoint", () => {
   describe("Create a new user with valid value", () => {
     it("POST /api/users/ and should obtain { id:1, firstname: 'Xa', lastname: 'Ge', email: 'test@gmail.com', ...}", async () => {
       const res = await request(app).post("/api/users/").send(userPayload);
-      console.log(res);
       expect(res.statusCode).toBe(201);
     });
   });
 
   describe("Create a new user with no all necessary value", () => {
-    it("POST /api/users/ and should obtain code 400", async () => {
+    it("POST /api/users/ and should obtain code 422", async () => {
       const res = await request(app).post("/api/users/").send(badUserPayload);
-      expect(res.statusCode).toBe(400);
+      expect(res.statusCode).toBe(422);
     });
   });
 
