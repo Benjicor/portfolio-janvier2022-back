@@ -27,7 +27,6 @@ describe("Files API Endpoint", () => {
   describe("Create a new file with valid value", () => {
     it("POST /api/files/ and should obtain { id:1, title: 'Z1000', start_date: '2004-01-01', end_date: '2008-01-01', src: '../../public/Z1000', ...}", async () => {
       const res = await request(app).post("/api/files/").send(filePayload);
-      console.log(res);
       expect(res.statusCode).toBe(201);
     });
   });
@@ -35,7 +34,6 @@ describe("Files API Endpoint", () => {
   describe("Create a new file with no all necessary value", () => {
     it("POST /api/files/ and should obtain code 400", async () => {
       const res = await request(app).post("/api/files/").send(badFilePayload);
-      console.log(res);
       expect(res.statusCode).toBe(422);
     });
   });
@@ -73,7 +71,6 @@ describe("Files API Endpoint", () => {
   describe("Updated file with good value to be modified", () => {
     it("PUT /api/files/1 and should obtain code 200", async () => {
       const res = await request(app).put("/api/files/1").send({ title: "Speed Triple" });
-      console.log(res);
       expect(res.statusCode).toBe(200);
     });
   });

@@ -11,7 +11,7 @@ class Files {
     return connection.promise().query(sql, [id]); // [id]= se que l'on attends en resultat
   }
 
-  static findOneByName(title) {
+  static findOneByTitle(title) {
     const sql = "SELECT * FROM files WHERE title=?";
     return connection.promise().query(sql, [title]); // [id]= se que l'on attends en resultat
   }
