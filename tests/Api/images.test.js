@@ -11,21 +11,27 @@ const imagePayload = {
 
 const badImagePayload = {
   alt: "Speed Triple",
-  description: "Voici ma moto un Speed Triple 1050 de chez Triumph",
+  files_id: 1,
 };
 
 describe("Images API Endpoint", () => {
   beforeAll(async () => {
-    const sql = "DELETE FROM images WHERE id > 0";
-    const sql2 = "ALTER TABLE images AUTO_INCREMENT=1";
+    const sql = "DELETE FROM files WHERE id > 0"; // DELETE LA TABLE
+    const sql2 = "ALTER TABLE files AUTO_INCREMENT=1"; // ALTER LA TABLE
+    const sql3 =
+      "INSERT INTO files VALUES (1,'Mon projet', '2008-04-05', '2022-01-24', '2022-01-26','../../public/Presentation-du-Projet.pages', 'Voici un projet de reprise')"; // INSERT UN FICHIER DANS LA TABLE
+    const sql4 = "DELETE FROM images WHERE id > 0"; // DELETE LA TABLE
+    const sql5 = "ALTER TABLE images AUTO_INCREMENT=1"; // ALTER LA TABLE
     await query(sql);
     await query(sql2);
+    await query(sql3);
+    await query(sql4);
+    await query(sql5);
   });
 
   describe("Create a new image with valid value", () => {
-    it("POST /api/images/ and should obtain { id:1, alt: 'Z1000', src: '../../public/Z1000', ...}", async () => {
+    it("POST /api/images/ and should obtain { id:1, alt: 'Speed Triple', src: '../../public/Speed-Triple-1050.jpg', description: 'Voici ma moto un Speed Triple 1050 de chez Triumph', ...}", async () => {
       const res = await request(app).post("/api/images/").send(imagePayload);
-      console.log(res);
       expect(res.statusCode).toBe(201);
     });
   });
@@ -33,7 +39,7 @@ describe("Images API Endpoint", () => {
   describe("Create a new image with no all necessary value", () => {
     it("POST /api/images/ and should obtain code 400", async () => {
       const res = await request(app).post("/api/images/").send(badImagePayload);
-      expect(res.statusCode).toBe(422);
+      expect(res.statusCode).toBe(400);
     });
   });
 
@@ -56,6 +62,7 @@ describe("Images API Endpoint", () => {
     it("GET /api/images and should obtain [{...}]", async () => {
       const res = await request(app).get("/api/images/");
       expect(res.status).toBe(200);
+      expect(res.body).toEqual(expect.arrayContaining([expect.objectContaining({ id: expect.any(Number) })]));
     });
   });
 
@@ -68,7 +75,7 @@ describe("Images API Endpoint", () => {
 
   describe("Updated image with good value to be modified", () => {
     it("PUT /api/images/1 and should obtain code 200", async () => {
-      const res = await request(app).put("/api/images/1").send({ alt: "Speed Triple" });
+      const res = await request(app).put("/api/images/1").send({ src: "../../public/Speed-Triple-1050.jpg" });
       expect(res.statusCode).toBe(200);
     });
   });

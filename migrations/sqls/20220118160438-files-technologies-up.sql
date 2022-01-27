@@ -1,8 +1,8 @@
 /* Replace with your SQL commands */
-CREATE TABLE `files_technology` (
+CREATE TABLE `files_technologies` (
     `id` INT  NOT NULL AUTO_INCREMENT PRIMARY KEY ,
     `files_id` INT  NOT NULL ,
-    `technology_id` INT  NOT NULL,
+    `technologies_id` INT  NOT NULL,
     FOREIGN KEY(`files_id`) REFERENCES `files` (`id`) ON DELETE CASCADE,
-    FOREIGN KEY(`technology_id`) REFERENCES `technology` (`id`) ON DELETE CASCADE
+    FOREIGN KEY(`technologies_id`) REFERENCES `technologies` (`id`) ON DELETE CASCADE
 );

@@ -1,2 +1,2 @@
 /* Replace with your SQL commands */
-DROP TABLE IF EXISTS `technology`;
+DROP TABLE IF EXISTS `technologies`;
