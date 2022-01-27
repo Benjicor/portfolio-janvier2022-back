@@ -2,11 +2,12 @@ module.exports = {
   env: {
     es2021: true,
     node: true,
+    jest: true,
   },
   extends: ["airbnb-base", "plugin:prettier/recommended"],
   plugins: ["prettier"],
   parserOptions: {
-    ecmaVersion: 2015,
+    ecmaVersion: 2020,
     sourceType: "module",
   },
   rules: {
@@ -15,4 +16,5 @@ module.exports = {
     camelcase: 0,
   },
   ignorePatterns: ["migrations/*"],
+  parser: "babel-eslint",
 };

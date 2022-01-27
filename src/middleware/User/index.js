@@ -29,7 +29,7 @@ const validatePutUser = async (req, res, next) => {
     }
     // On envoie dans la requete l'objet des valeurs saisie depuis la requete
     req.userInformation = userInformation;
-    next();
+    return next();
   } catch (e) {
     return res.status(500).send(e);
   }
@@ -43,10 +43,9 @@ const validatePostUser = async (req, res, next) => {
     if (userExist.length) return res.sendStatus(422);
     if (firstname && lastname && email && password && username) {
       req.userInformation = user;
-      next();
-    } else {
-      return res.status(422).json({ message: "Toutes les valeurs nécessaires a l'inscription sont requises" });
+      return next();
     }
+    return res.status(422).json({ message: "Toutes les valeurs nécessaires a l'inscription sont requises" });
   } catch (err) {
     return res.send(err.message);
   }

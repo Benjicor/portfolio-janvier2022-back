@@ -29,7 +29,7 @@ const validatePutFile = async (req, res, next) => {
     }
     // On envoie dans la requete l'objet des valeurs saisie depuis la requete
     req.fileInformation = fileInformation;
-    next();
+    return next();
   } catch (e) {
     return res.status(500).send(e);
   }
@@ -43,10 +43,9 @@ const validatePostFile = async (req, res, next) => {
     if (fileExist) return res.sendStatus(422);
     if (title && start_date && end_date && src) {
       req.fileInformation = file;
-      next();
-    } else {
-      return res.status(400).json({ message: "Toutes les valeurs nécessaires à l'entrée du fichier sont requises" });
+      return next();
     }
+    return res.status(400).json({ message: "Toutes les valeurs nécessaires à l'entrée du fichier sont requises" });
   } catch (err) {
     return res.send(err.message);
   }

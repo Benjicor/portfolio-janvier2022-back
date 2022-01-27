@@ -20,7 +20,7 @@ const validatePutTechnology = async (req, res, next) => {
     }
     // On envoie dans la requete l'objet des valeurs saisie depuis la requete
     req.technologyInformation = technologyInformation;
-    next();
+    return next();
   } catch (e) {
     return res.status(500).send(e);
   }
@@ -34,10 +34,9 @@ const validatePostTechnology = async (req, res, next) => {
     if (technologyExist) return res.sendStatus(422);
     if (name && src) {
       req.technologyInformation = technology;
-      next();
-    } else {
-      return res.status(400).json({ message: "Toutes les valeurs nécessaires à l'entrée du fichier sont requises" });
+      return next();
     }
+    return res.status(400).json({ message: "Toutes les valeurs nécessaires à l'entrée du fichier sont requises" });
   } catch (err) {
     return res.send(err.message);
   }

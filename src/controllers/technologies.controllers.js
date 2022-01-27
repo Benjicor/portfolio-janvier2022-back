@@ -4,9 +4,9 @@ const { Technology } = require("../models");
 const findMany = async (req, res) => {
   try {
     const [results] = await Technology.findMany();
-    res.json(results);
+    return res.json(results);
   } catch (err) {
-    res.status(500).send(err.message);
+    return res.status(500).send(err.message);
   }
 };
 
@@ -16,9 +16,9 @@ const findOneById = async (req, res) => {
     const { id } = req.params;
     const [[results]] = await Technology.findOneById(id);
     if (!results) return res.status(404).send();
-    res.json(results);
+    return res.json(results);
   } catch (err) {
-    res.status(500).send(err.message);
+    return res.status(500).send(err.message);
   }
 };
 
@@ -43,7 +43,7 @@ const updateOneById = async (req, res) => {
     const [[technology]] = await Technology.findOneById(req.params.id);
     return res.status(200).json({ message: "La technologie à bien été modifier", technology });
   } catch (err) {
-    res.status(500).send(err.message);
+    return res.status(500).send(err.message);
   }
 };
 
@@ -56,7 +56,7 @@ const removeOneById = async (req, res) => {
     }
     return res.status(204).json({ message: "La technologie à bien été supprimer" });
   } catch (err) {
-    res.status(500).send(err.message);
+    return res.status(500).send(err.message);
   }
 };
 

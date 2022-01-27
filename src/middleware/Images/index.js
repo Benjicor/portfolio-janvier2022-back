@@ -22,11 +22,11 @@ const validatePutImage = async (req, res, next) => {
       imageInformation.description = description;
     }
     if (files_id) {
-      files_idInformation.files_id = files_id;
+      imageInformation.files_id = files_id;
     }
     // On envoie dans la requete l'objet des valeurs saisie depuis la requete
     req.imageInformation = imageInformation;
-    next();
+    return next();
   } catch (e) {
     return res.status(500).send(e);
   }
@@ -40,10 +40,9 @@ const validatePostImage = async (req, res, next) => {
     if (imageExist) return res.sendStatus(422);
     if (alt && src && files_id) {
       req.imageInformation = image;
-      next();
-    } else {
-      return res.status(400).json({ message: "Toutes les valeurs nécessaires à l'entrée de l'image sont requises" });
+      return next();
     }
+    return res.status(400).json({ message: "Toutes les valeurs nécessaires à l'entrée de l'image sont requises" });
   } catch (err) {
     return res.send(err.message);
   }
