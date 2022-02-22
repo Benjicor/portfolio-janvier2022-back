@@ -4,11 +4,11 @@ const app = require("../../src/app");
 
 const technologyPayload = {
   name: "Node.js",
-  src: "../../public/nodejs.svg",
+  src: "../../public/images/svg/nodejs.svg",
 };
 
 const badTechnologyPayload = {
-  src: "../../public/nodejs.svg",
+  src: "../../public/images/svg/nodejs.svg",
 };
 
 describe("technologies API Endpoint", () => {
