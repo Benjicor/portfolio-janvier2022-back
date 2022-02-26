@@ -1,7 +1,7 @@
 /* Replace with your SQL commands */
 CREATE TABLE `files` (
     `id` INT  NOT NULL AUTO_INCREMENT PRIMARY KEY ,
-    `title` VARCHAR(100)  NOT NULL ,
+    `title` VARCHAR(255)  NOT NULL ,
     `start_date` DATETIME  NOT NULL ,
     `end_date` DATETIME  NOT NULL ,
     `create_time` DATETIME  NOT NULL DEFAULT current_timestamp(),

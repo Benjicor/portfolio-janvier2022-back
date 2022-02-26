@@ -124,7 +124,7 @@ emailRouter.post("/html-and-file", async (req, res) => {
 // Envoie de mail avec hbs template et un fichier
 // Penser à retirer le "async" si utilisation de la première méthode en commentaire sans le "try/catch"
 emailRouter.post("/hbs-and-file", async (req, res) => {
-  const { email, firstName, lastName, message } = req.body;
+  const { email, firstName, lastName, subject, message } = req.body;
 
   // Configuration du mail avec du hbs et une image
   const mailOptions = {
@@ -148,6 +148,7 @@ emailRouter.post("/hbs-and-file", async (req, res) => {
       firstName,
       lastName,
       email,
+      subject,
       message,
     },
   };
