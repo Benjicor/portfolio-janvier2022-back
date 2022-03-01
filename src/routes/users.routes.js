@@ -8,7 +8,7 @@ usersRouter.get("/", UserController.findMany);
 usersRouter.get("/:id", UserController.findOneById);
 
 // POST
-usersRouter.post("/", validatePostUser, UserController.createOne);
+usersRouter.post("/", validatePostUser, UserController.createOneUser, UserController.getOneUserById);
 
 // PUT
 usersRouter.put("/:id", validatePutUser, UserController.updateOneById);

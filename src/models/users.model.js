@@ -1,3 +1,4 @@
+const argon2 = require("argon2");
 const { connection } = require("../../db-connection");
 
 class User {
@@ -16,9 +17,24 @@ class User {
     return connection.promise().query(sql, [email]);
   }
 
+  static getAllByEmail(email) {
+    const sql = "SELECT * FROM users WHERE email=?";
+    return connection.promise().query(sql, [email]);
+  }
+
+  static getOneById(id) {
+    const sql = "SELECT id, email FROM users WHERE id=?";
+    return connection.promise().query(sql, [id]);
+  }
+
   static createOne(userInformation) {
     const sql = "INSERT INTO users SET ?";
     return connection.promise().query(sql, [userInformation]);
+  }
+
+  static async hashPassword(password) {
+    const hashedPassword = await argon2.hash(password);
+    return hashedPassword;
   }
 
   static updateOneById(userInformation, id) {

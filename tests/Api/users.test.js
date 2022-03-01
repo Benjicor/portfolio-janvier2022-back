@@ -7,13 +7,13 @@ const userPayload = {
   lastname: "CORDREAUX",
   username: "Benjicor",
   email: "cordreaux.benjamin@gmail.com",
-  hashedpassword: "test",
+  password: "test",
 };
 
 const badUserPayload = {
   firstname: "Benjamin",
   lastname: "CORDREAUX",
-  hashedpassword: "test",
+  password: "test",
 };
 
 describe("Users API Endpoint", () => {

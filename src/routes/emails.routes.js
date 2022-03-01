@@ -124,7 +124,7 @@ emailRouter.post("/html-and-file", async (req, res) => {
 // Envoie de mail avec hbs template et un fichier
 // Penser à retirer le "async" si utilisation de la première méthode en commentaire sans le "try/catch"
 emailRouter.post("/hbs-and-file", async (req, res) => {
-  const { email, firstName, lastName, subject, message } = req.body;
+  const { email, firstname, lastname, subject, message } = req.body;
 
   // Configuration du mail avec du hbs et une image
   const mailOptions = {
@@ -132,7 +132,7 @@ emailRouter.post("/hbs-and-file", async (req, res) => {
     to: SENDER_EMAIL_ADDRESS,
     // cc: 'Email en copie'
     // bcc: 'Email en copie cachée'
-    subject: `Bonjour je suis ${firstName} ${lastName} et vous contact depuis votre Portfolio`, // Envoie d'email avec une template hbs
+    subject: `Bonjour je suis ${firstname} ${lastname} et vous contact depuis votre Portfolio`, // Envoie d'email avec une template hbs
     // text: "C'est juste un test",
     attachments: [
       {
@@ -145,8 +145,8 @@ emailRouter.post("/hbs-and-file", async (req, res) => {
     context: {
       src: "Speed-Triple.jpg",
       alt: "Photo Speed Triple 1050",
-      firstName,
-      lastName,
+      firstname,
+      lastname,
       email,
       subject,
       message,

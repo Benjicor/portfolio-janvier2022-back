@@ -28,11 +28,44 @@ const createOne = async (req, res) => {
     const [result] = await User.createOne(req.userInformation);
     const [[userCreated]] = await User.findOneById(result.insertId);
     return res.status(201).json({
-      message: "Votre compte à bien été modifier",
+      message: "Votre compte à bien été créé",
       user: userCreated,
     });
   } catch (err) {
     return res.status(500).json(err.message);
+  }
+};
+
+// Méthode qui permet de vérifier que l'email n'a pas déjà été utilisé
+const createOneUser = async (req, res, next) => {
+  const { firstname, lastname, username, email, password } = req.body;
+  try {
+    const [results] = await User.getAllByEmail(email);
+    if (results.length) {
+      res.status(400).send("L'email est déjà utilisé");
+    } else {
+      const hashedPassword = await User.hashPassword(password);
+      const [result] = await User.createOne({ firstname, lastname, username, email, password: hashedPassword });
+      req.userId = result.insertId;
+      next();
+    }
+  } catch (err) {
+    res.status(500).send(err.message);
+  }
+};
+
+// Méthode qui permet de vérifier que l'utilisateur existe
+const getOneUserById = async (req, res) => {
+  const id = req.userId;
+  try {
+    const [results] = await User.getOneById(id);
+    if (!results.length) {
+      res.status(404).send("Utilisateur non trouvé");
+    } else {
+      res.status(201).json(results[0]);
+    }
+  } catch (err) {
+    res.status(500).send(err.message);
   }
 };
 
@@ -60,4 +93,4 @@ const removeOneById = async (req, res) => {
   }
 };
 
-module.exports = { findMany, findOneById, createOne, updateOneById, removeOneById };
+module.exports = { findMany, findOneById, createOne, createOneUser, getOneUserById, updateOneById, removeOneById };
