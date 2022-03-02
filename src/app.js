@@ -1,7 +1,7 @@
 require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
-const mainRouter = require("./routes");
+const mainRoutes = require("./routes");
 
 const app = express();
 
@@ -17,6 +17,6 @@ app.get("/", (req, res) => {
   res.status(200).json({ foo: "Hello" });
 });
 
-app.use("/api", mainRouter);
+app.use("/api", mainRoutes);
 
 module.exports = app;

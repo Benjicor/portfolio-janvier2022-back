@@ -37,6 +37,11 @@ class User {
     return hashedPassword;
   }
 
+  static async validatePassword(password, hashedPassword) {
+    const valid = await argon2.verify(hashedPassword, password);
+    return valid;
+  }
+
   static updateOneById(userInformation, id) {
     const sql = "UPDATE users SET ? WHERE id=?";
     return connection.promise().query(sql, [userInformation, id]);
