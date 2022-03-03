@@ -1,6 +1,6 @@
 const usersRouter = require("express").Router();
 
-const { UserController } = require("../controllers");
+const { UserController, AuthController } = require("../controllers");
 const { validatePutUser, validatePostUser } = require("../middleware/User");
 
 // GET
@@ -8,7 +8,7 @@ usersRouter.get("/", UserController.findMany);
 usersRouter.get("/:id", UserController.findOneById);
 
 // POST
-usersRouter.post("/", validatePostUser, UserController.createOneUser, UserController.getOneUserById);
+usersRouter.post("/", validatePostUser, AuthController.verifyAccessToken, UserController.createOneUser, UserController.getOneUserById);
 
 // PUT
 usersRouter.put("/:id", validatePutUser, UserController.updateOneById);
