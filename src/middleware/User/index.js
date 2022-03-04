@@ -40,7 +40,8 @@ const validatePostUser = async (req, res, next) => {
     const { firstname, lastname, username, email, password } = req.body;
     const user = { firstname, lastname, username, email, password };
     const [userExist] = await User.findOneByEmail(email);
-    if (userExist.length) return res.sendStatus(422);
+    if (userExist.length) return res.status(422).send("Utilisateur existant");
+    if (password.length < 10) return res.status(422).send("Format de mot de passe invalide");
     if (firstname && lastname && username && email && password) {
       req.userInformation = user;
       return next();

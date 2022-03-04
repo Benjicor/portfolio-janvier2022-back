@@ -20,7 +20,7 @@ app.use(cookieParser());
 app.use(express.json());
 
 app.get("/", (req, res) => {
-  res.status(200).json({ foo: "Hello" });
+  res.status(200).json({ foo: "Salut Ben" });
 });
 
 app.use("/api", mainRoutes);

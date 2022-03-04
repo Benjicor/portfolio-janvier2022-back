@@ -36,19 +36,25 @@ const createOne = async (req, res) => {
   }
 };
 
-// Méthode qui permet de vérifier que l'email n'a pas déjà été utilisé
+// Méthode qui permet de vérifier que l'email n'a pas déjà été utilisé et que le mot de passe est valide lors de la création d'un nouvel utilisateur
+const validateDataCreateUser = async (req, res, next) => {
+  const { email, password } = req.body;
+  if (await User.emailAlreadyExists(email)) {
+    res.status(400).send("Email déjà utilisé");
+  } else if (!User.validateLengthPassword(password)) {
+    res.status(400).send("Mot de passe invalide");
+  } else {
+    next();
+  }
+};
+
+// Méthode qui permet de créer un utilisateur et de hacher le mot de passe
 const createOneUser = async (req, res, next) => {
-  const { firstname, lastname, username, email, password } = req.body;
   try {
-    const [results] = await User.getAllByEmail(email);
-    if (results.length) {
-      res.status(400).send("L'email est déjà utilisé");
-    } else {
-      const hashedPassword = await User.hashPassword(password);
-      const [result] = await User.createOne({ firstname, lastname, username, email, password: hashedPassword });
-      req.userId = result.insertId;
-      next();
-    }
+    const hashedPassword = await User.hashPassword(req.userInformation.password);
+    const [result] = await User.createOne({ ...req.userInformation, password: hashedPassword });
+    req.userId = result.insertId;
+    next();
   } catch (err) {
     res.status(500).send(err.message);
   }
@@ -58,7 +64,7 @@ const createOneUser = async (req, res, next) => {
 const getOneUserById = async (req, res) => {
   const id = req.userId;
   try {
-    const [results] = await User.getOneById(id);
+    const [results] = await User.findOneById(id);
     if (!results.length) {
       res.status(404).send("Utilisateur non trouvé");
     } else {
@@ -93,4 +99,4 @@ const removeOneById = async (req, res) => {
   }
 };
 
-module.exports = { findMany, findOneById, createOne, createOneUser, getOneUserById, updateOneById, removeOneById };
+module.exports = { findMany, findOneById, createOne, validateDataCreateUser, createOneUser, getOneUserById, updateOneById, removeOneById };

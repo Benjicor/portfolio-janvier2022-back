@@ -12,6 +12,26 @@ class User {
     return connection.promise().query(sql, [id]);
   }
 
+  static getOneById(id) {
+    const sql = "SELECT id, email FROM users WHERE id=?";
+    return connection.promise().query(sql, [id]);
+  }
+
+  static deleteOneById(id) {
+    const sql = "DELETE FROM users WHERE id = ?";
+    return connection.promise().query(sql, [id]);
+  }
+
+  static updateOneById(userInformation, id) {
+    const sql = "UPDATE users SET ? WHERE id=?";
+    return connection.promise().query(sql, [userInformation, id]);
+  }
+
+  static createOne(userInformation) {
+    const sql = "INSERT INTO users SET ?";
+    return connection.promise().query(sql, [userInformation]);
+  }
+
   static findOneByEmail(email) {
     const sql = "SELECT * FROM users WHERE email=?";
     return connection.promise().query(sql, [email]);
@@ -22,14 +42,10 @@ class User {
     return connection.promise().query(sql, [email]);
   }
 
-  static getOneById(id) {
-    const sql = "SELECT id, email FROM users WHERE id=?";
-    return connection.promise().query(sql, [id]);
-  }
-
-  static createOne(userInformation) {
-    const sql = "INSERT INTO users SET ?";
-    return connection.promise().query(sql, [userInformation]);
+  static async emailAlreadyExists(email) {
+    const sql = "SELECT * FROM users WHERE email=?";
+    const [results] = await connection.promise().query(sql, [email]);
+    return results.length > 0;
   }
 
   static async hashPassword(password) {
@@ -42,14 +58,8 @@ class User {
     return valid;
   }
 
-  static updateOneById(userInformation, id) {
-    const sql = "UPDATE users SET ? WHERE id=?";
-    return connection.promise().query(sql, [userInformation, id]);
-  }
-
-  static deleteOneById(id) {
-    const sql = "DELETE FROM users WHERE id = ?";
-    return connection.promise().query(sql, [id]);
+  static validateLengthPassword(password) {
+    return password.length > 10;
   }
 }
 

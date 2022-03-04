@@ -53,7 +53,8 @@ const verifyAccessToken = async (req, res, next) => {
       }
     });
   } else {
-    res.status(403).send("Unauthorized");
+    res.clearCookie("token");
+    res.status(403).send("Accès non autorisé");
   }
 };
 
