@@ -6,6 +6,7 @@ const mainRoutes = require("./routes");
 
 const app = express();
 
+// On configure cors pour autoriser uniquement le front à communiquer avec notre API et pour avoir accès aux cookies
 app.use(
   cors({
     origin: [process.env.CLIENT_ORIGIN],
@@ -15,6 +16,7 @@ app.use(
   }),
 );
 
+// Accès aux cookies
 app.use(cookieParser());
 
 app.use(express.json());

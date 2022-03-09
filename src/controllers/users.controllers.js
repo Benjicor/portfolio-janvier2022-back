@@ -41,7 +41,7 @@ const validateDataCreateUser = async (req, res, next) => {
   const { email, password } = req.body;
   if (await User.emailAlreadyExists(email)) {
     res.status(400).send("Email déjà utilisé");
-  } else if (!User.validateLengthPassword(password)) {
+  } else if (!User.verifyLengthPassword(password)) {
     res.status(400).send("Mot de passe invalide");
   } else {
     next();
@@ -75,6 +75,27 @@ const getOneUserById = async (req, res) => {
   }
 };
 
+// Méthode qui permet de vérifier les références
+const verifyCredentials = async (req, res) => {
+  const { email, password } = req.body;
+  try {
+    const [results] = await User.findOneByEmail(email);
+    if (results.length === 0) {
+      res.status(401).send("Référence invalide");
+    } else {
+      const hashedPassword = results[0].password;
+      const validPassword = await User.verifyPassword(password, hashedPassword);
+      if (!validPassword) {
+        res.status(401).send("Référence invalide");
+      } else {
+        res.status(200).send("Vous êtes autorisé");
+      }
+    }
+  } catch (err) {
+    res.status(500).send(err.message);
+  }
+};
+
 // Méthode qui permet de mettre a jour les informations d'un utilisteur par son ID
 const updateOneById = async (req, res) => {
   try {
@@ -99,4 +120,14 @@ const removeOneById = async (req, res) => {
   }
 };
 
-module.exports = { findMany, findOneById, createOne, validateDataCreateUser, createOneUser, getOneUserById, updateOneById, removeOneById };
+module.exports = {
+  findMany,
+  findOneById,
+  createOne,
+  validateDataCreateUser,
+  createOneUser,
+  getOneUserById,
+  verifyCredentials,
+  updateOneById,
+  removeOneById,
+};

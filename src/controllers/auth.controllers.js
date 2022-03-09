@@ -1,21 +1,23 @@
+require("dotenv").config();
 const jwt = require("jsonwebtoken");
 const { User } = require("../models");
 
-const { ACCESS_JWT_SECRET, ACCESS_JWT_EXPIRESIN, ACCESS_JWT_COOKIE_MAXAGE, ACCESS_JWT_COOKIE_SECURE } = process.env;
+const { ACCESS_JWT_SECRET } = process.env;
 
+// Méthode qui permet de vérifier que l'email existe et que le mot de passe est valide lors de la connexion
 const connect = async (req, res, next) => {
   const { email, password } = req.body;
   try {
-    const [results] = await User.getAllByEmail(email);
+    const [results] = await User.findOneByEmail(email);
     if (!results.length) {
-      res.status(401).send("email ou mot de passe incorrect");
+      res.status(400).send("email ou mot de passe incorrect");
     } else {
-      const validPassword = await User.validatePassword(password, results[0].password);
+      const validPassword = await User.verifyPassword(password, results[0].password);
       if (validPassword) {
         req.userId = results[0].id;
         next();
       } else {
-        res.status(401).send("email ou mot de passe incorrect");
+        res.status(400).send("email ou mot de passe incorrect");
       }
     }
   } catch (err) {
@@ -26,18 +28,18 @@ const connect = async (req, res, next) => {
 const createAccessToken = async (req, res) => {
   const id = req.userId;
   const token = jwt.sign({ id }, ACCESS_JWT_SECRET, {
-    expiresIn: ACCESS_JWT_EXPIRESIN,
+    expiresIn: "15m",
   });
 
   res
     .status(200)
     .cookie("token", token, {
       httpOnly: true,
-      maxAge: parseInt(ACCESS_JWT_COOKIE_MAXAGE, 10),
-      secure: ACCESS_JWT_COOKIE_SECURE === "true",
+      maxAge: 900000,
+      secure: "false" === "true",
       sameSite: "lax",
     })
-    .json({ id, expiresIn: parseInt(ACCESS_JWT_COOKIE_MAXAGE, 10) });
+    .json({ id });
 };
 
 const verifyAccessToken = async (req, res, next) => {

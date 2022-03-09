@@ -53,12 +53,12 @@ class User {
     return hashedPassword;
   }
 
-  static async validatePassword(password, hashedPassword) {
+  static async verifyPassword(password, hashedPassword) {
     const valid = await argon2.verify(hashedPassword, password);
     return valid;
   }
 
-  static validateLengthPassword(password) {
+  static verifyLengthPassword(password) {
     return password.length > 10;
   }
 }
