@@ -1,3 +1,4 @@
+const multer = require("multer");
 const { Image } = require("../models");
 
 // Méthode qui permet de recuperer toutes les images
@@ -60,4 +61,30 @@ const removeOneById = async (req, res) => {
   }
 };
 
-module.exports = { findMany, findOneById, createOne, updateOneById, removeOneById };
+const uploadFile = (req, res, next) => {
+  // Configuration du dossier où stocker l'image et le nom de l'image
+  const storage = multer.diskStorage({
+    destination: (req2, file, cb) => {
+      cb(null, "public/images");
+    },
+    filename: (_, file, cb) => {
+      cb(null, `${Date.now()}-${file.originalname}`);
+    },
+  });
+
+  // On configure multer pour sauvegarder un seul fichier qui est dans req.body.file
+  const upload = multer({ storage }).single("file");
+  upload(req, res, (err) => {
+    if (err) {
+      res.status(500).json(err);
+    } else {
+      // On peut sauvegarder le nom et d'autres données de l'image dans une table de
+      // ....
+      // res.status(201).json({ filename: req.file.filename });
+      req.picture = JSON.parse(req.pictureData);
+      next();
+    }
+  });
+};
+
+module.exports = { findMany, findOneById, createOne, updateOneById, removeOneById, uploadFile };

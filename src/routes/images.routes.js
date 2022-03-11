@@ -9,7 +9,7 @@ imagesRouter.get("/:id", ImagesController.findOneById);
 
 // POST
 imagesRouter.post("/", validatePostImage, ImagesController.createOne);
-// imagesRouter.post("/upload", AuthController.verifyAccessToken, ImagesContoller.uploadFile, ImagesController.createOne);
+imagesRouter.post("/upload", /* AuthController.verifyAccessToken, */ ImagesController.uploadFile /* ImagesController.createOne */);
 
 // PUT
 imagesRouter.put("/:id", validatePutImage, ImagesController.updateOneById);

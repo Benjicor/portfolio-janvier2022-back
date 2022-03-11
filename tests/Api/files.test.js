@@ -6,13 +6,13 @@ const filePayload = {
   title: "Speed Triple",
   start_date: "2008-04-05",
   end_date: "2022-01-24",
-  src: "../../public/images/jpg/Speed-Triple-1050.jpg",
+  src: "../../public/images/Speed-Triple-1050.jpg",
   description: "Voici ma moto un Speed Triple 1050 de chez Triumph",
 };
 
 const badFilePayload = {
   title: "Speed Triple",
-  src: "../../public/images/jpg/Speed-Triple-1050.jpg",
+  src: "../../public/images/Speed-Triple-1050.jpg",
   description: "Voici ma moto un Speed Triple 1050 de chez Triumph",
 };
 

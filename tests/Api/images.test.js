@@ -4,7 +4,7 @@ const app = require("../../src/app");
 
 const imagePayload = {
   alt: "Speed Triple",
-  src: "../../public/images/jpg/Speed-Triple-1050.jpg",
+  src: "../../public/images/Speed-Triple-1050.jpg",
   description: "Voici ma moto un Speed Triple 1050 de chez Triumph",
   files_id: 1,
 };

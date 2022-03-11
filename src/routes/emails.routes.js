@@ -100,7 +100,7 @@ emailRouter.post("/html-and-file", async (req, res) => {
     attachments: [
       {
         filename: "Speed-Triple.jpg",
-        path: path.join(__dirname, "../../public/images/jpg/Speed-Triple-1050.jpg"),
+        path: path.join(__dirname, "../../public/images/Speed-Triple-1050.jpg"),
       },
     ],
   };
@@ -137,7 +137,7 @@ emailRouter.post("/hbs-and-file", async (req, res) => {
     attachments: [
       {
         filename: "Speed-Triple.jpg",
-        path: path.join(__dirname, "../../public/images/jpg/Speed-Triple-1050.jpg"),
+        path: path.join(__dirname, "../../public/images/Speed-Triple-1050.jpg"),
         cid: "Speed-Triple.jpg",
       },
     ],
