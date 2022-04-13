@@ -22,7 +22,7 @@ class Images {
   }
 
   static createOne(images) {
-    const sql = "INSERT INTO images SET alt=?";
+    const sql = "INSERT INTO images SET ?";
     return connection.promise().query(sql, [images]);
   }
 

@@ -22,7 +22,7 @@ class Files {
   }
 
   static createOne(files) {
-    const sql = "INSERT INTO files SET title=?";
+    const sql = "INSERT INTO files SET ?";
     return connection.promise().query(sql, [files]);
   }
 

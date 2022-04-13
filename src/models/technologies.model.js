@@ -22,7 +22,7 @@ class Technologies {
   }
 
   static createOne(technologies) {
-    const sql = "INSERT INTO technologies SET name=?";
+    const sql = "INSERT INTO technologies SET ?";
     return connection.promise().query(sql, [technologies]);
   }
 
