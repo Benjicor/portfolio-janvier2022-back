@@ -25,12 +25,23 @@ const findOneById = async (req, res) => {
 
 // Méthode qui permet de créer une image
 const createOne = async (req, res) => {
+  const { description, files_id } = req.body;
   try {
-    const [result] = await Image.createOne(req.imageInformation);
-    const [[imageCreated]] = await Image.findOneById(result.insertId);
+    const results = Promise.all(
+      req.files?.map(async (file) => {
+        const [result] = await Image.createOne({
+          description,
+          files_id,
+          alt: file.filename,
+          src: file.filename,
+        });
+        const [[imageCreated]] = await Image.findOneById(result.insertId);
+        return imageCreated;
+      }),
+    );
     return res.status(201).json({
       message: "Votre image à bien été créer",
-      image: imageCreated,
+      image: await results,
     });
   } catch (err) {
     return res.status(500).json(err.message);
@@ -73,15 +84,16 @@ const uploadFile = (req, res, next) => {
   });
 
   // On configure multer pour sauvegarder un seul fichier qui est dans req.body.file
-  const upload = multer({ storage }).single("file");
+  const upload = multer({ storage }).array("file");
   upload(req, res, (err) => {
     if (err) {
       res.status(500).json(err);
     } else {
       // On peut sauvegarder le nom et d'autres données de l'image dans une table de
       // ....
-      // res.status(201).json({ filename: req.file.filename });
-      req.picture = JSON.parse(req.pictureData);
+      // res.status(201).json({ filename: req.files.filename });
+      // req.picture = JSON.parse(req.pictureData);
+      req.body = JSON.parse(req.body.data);
       next();
     }
   });
