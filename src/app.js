@@ -20,7 +20,7 @@ app.use(
 app.use(cookieParser());
 
 app.use(express.json());
-
+app.use("/images", express.static("public/images"));
 app.get("/", (req, res) => {
   res.status(200).json({ foo: "Salut Ben" });
 });

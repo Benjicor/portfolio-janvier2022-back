@@ -35,6 +35,11 @@ class Images {
     const sql = "DELETE FROM images WHERE id=?";
     return connection.promise().query(sql, [id]);
   }
+
+  static findImagesByFilesId(id) {
+    const sql = "SELECT * FROM images WHERE files_id=?";
+    return connection.promise().query(sql, [id]);
+  }
 }
 
 module.exports = Images;

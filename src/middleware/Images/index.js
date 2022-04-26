@@ -34,12 +34,14 @@ const validatePutImage = async (req, res, next) => {
 
 const validatePostImage = async (req, res, next) => {
   try {
-    const { alt, src, description, files_id } = req.body;
-    const image = { alt, src, description, files_id };
-    const [[imageExist]] = await Image.findOneBySrc(src);
-    if (imageExist) return res.sendStatus(422);
-    if (alt && src && files_id) {
-      req.imageInformation = image;
+    const { description, files_id } = req.body;
+    if (files_id && description) {
+      req.imageInformation = {
+        description,
+        files_id,
+        alt: req.files[0].filename,
+        src: req.files[0].filename,
+      };
       return next();
     }
     return res.status(400).json({ message: "Toutes les valeurs nécessaires à l'entrée de l'image sont requises" });

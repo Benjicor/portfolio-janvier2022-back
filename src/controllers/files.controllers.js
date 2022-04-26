@@ -1,10 +1,16 @@
-const { File } = require("../models");
+const { File, Image } = require("../models");
 
 // Méthode qui permet de recuperer tous les fichiers
 const findMany = async (req, res) => {
   try {
     const [results] = await File.findMany();
-    return res.json(results);
+    const files = await Promise.all(
+      results.map(async (file) => {
+        const [images] = await Image.findImagesByFilesId(file.id);
+        return { ...file, images };
+      }),
+    );
+    return res.json(files);
   } catch (err) {
     return res.status(500).send(err.message);
   }
