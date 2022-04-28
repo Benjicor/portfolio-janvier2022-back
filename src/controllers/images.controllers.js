@@ -72,7 +72,7 @@ const removeOneById = async (req, res) => {
   }
 };
 
-const uploadFile = (req, res, next) => {
+const uploadImage = (req, res, next) => {
   // Configuration du dossier où stocker l'image et le nom de l'image
   const storage = multer.diskStorage({
     destination: (req2, file, cb) => {
@@ -99,4 +99,4 @@ const uploadFile = (req, res, next) => {
   });
 };
 
-module.exports = { findMany, findOneById, createOne, updateOneById, removeOneById, uploadFile };
+module.exports = { findMany, findOneById, createOne, updateOneById, removeOneById, uploadImage };
