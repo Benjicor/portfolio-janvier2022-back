@@ -1,6 +1,6 @@
 const imagesRouter = require("express").Router();
 
-const { ImagesController /* AuthController */ } = require("../controllers");
+const { ImagesController, AuthController } = require("../controllers");
 const { validatePutImage, validatePostImage } = require("../middleware/Images");
 
 // GET
@@ -9,7 +9,7 @@ imagesRouter.get("/:id", ImagesController.findOneById);
 
 // POST
 imagesRouter.post("/", validatePostImage, ImagesController.createOne);
-imagesRouter.post("/upload", /* AuthController.verifyAccessToken, */ ImagesController.uploadFile, ImagesController.createOne);
+imagesRouter.post("/upload", AuthController.verifyAccessToken, ImagesController.uploadFile, ImagesController.createOne);
 
 // PUT
 imagesRouter.put("/:id", validatePutImage, ImagesController.updateOneById);

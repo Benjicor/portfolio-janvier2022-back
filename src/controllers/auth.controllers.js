@@ -28,7 +28,7 @@ const connect = async (req, res, next) => {
 const createAccessToken = async (req, res) => {
   const id = req.userId;
   const token = jwt.sign({ id }, ACCESS_JWT_SECRET, {
-    expiresIn: "15m",
+    expiresIn: "60m",
   });
 
   res
