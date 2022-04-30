@@ -23,7 +23,7 @@ const findOneById = async (req, res) => {
   }
 };
 
-// Méthode qui permet de créer une image
+// Méthode qui permet de créer une image ou des images
 const createOne = async (req, res) => {
   const { description, files_id } = req.body;
   try {
