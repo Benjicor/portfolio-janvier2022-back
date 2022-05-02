@@ -1,60 +1,60 @@
 {
-    "name": "portfolio-janvier2022-back",
-    "version": "1.0.0",
-    "description": "",
-    "main": "index.js",
-    "scripts": {
-        "create-db-migration": "db-migrate create $NAME --sql-file",
-        "migrate-db": "db-migrate up",
-        "rollback-last-db-migration": "db-migrate down",
-        "start": "node src/index.js",
-        "dev": "nodemon src/index.js",
-        "lint": "npx eslint --fix *.js src tests *.js",
-        "format": "prettier --write \"src/**/*.+(js|jsx|json|yml|yaml|css|md|vue)\"",
-        "test": "NODE_ENV=test jest --testRunner='jest-circus/runner' --maxWorkers=1",
-        "test:migrate-db": "db-migrate up -e test",
-        "test:rollback-last-db-migration": "db-migrate down -e test"
-    },
-    "jest": {
-        "testRunner": "jest-circus/runner",
-        "testEnvironment": "node",
-        "setupFilesAfterEnv": [
-            "<rootDir>/tests/setupTests.js"
-        ],
-        "coveragePathIgnorePatterns": [
-            "/node_modules/"
-        ]
-    },
-    "keywords": [],
-    "author": "",
-    "license": "ISC",
-    "dependencies": {
-        "argon2": "^0.28.3",
-        "cookie-parser": "^1.4.6",
-        "cors": "^2.8.5",
-        "db-migrate-mysql": "^2.2.0",
-        "dotenv": "^11.0.0",
-        "express": "^4.17.2",
-        "handlebars": "^4.7.7",
-        "jsonwebtoken": "^8.5.1",
-        "multer": "^1.4.4",
-        "mysql2": "^2.3.3",
-        "nodemailer": "^6.7.2",
-        "nodemailer-express-handlebars": "^4.0.0"
-    },
-    "devDependencies": {
-        "babel-eslint": "^10.1.0",
-        "db-migrate": "^0.11.13",
-        "eslint": "^7.32.0",
-        "eslint-config-airbnb-base": "^15.0.0",
-        "eslint-config-prettier": "^8.3.0",
-        "eslint-plugin-import": "^2.25.4",
-        "eslint-plugin-jest": "^25.3.4",
-        "eslint-plugin-prettier": "^4.0.0",
-        "jest": "^27.4.7",
-        "jest-circus": "^27.4.6",
-        "nodemon": "^2.0.15",
-        "prettier": "^2.5.1",
-        "supertest": "^6.2.1"
-    }
+  "name": "portfolio-janvier2022-back",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "create-db-migration": "db-migrate create $NAME --sql-file",
+    "migrate-db": "db-migrate up",
+    "rollback-last-db-migration": "db-migrate down",
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js",
+    "lint": "npx eslint --fix *.js src tests *.js",
+    "format": "prettier --write \"src/**/*.+(js|jsx|json|yml|yaml|css|md|vue)\"",
+    "test": "NODE_ENV=test jest --testRunner='jest-circus/runner' --maxWorkers=1",
+    "test:migrate-db": "db-migrate up -e test",
+    "test:rollback-last-db-migration": "db-migrate down -e test"
+  },
+  "jest": {
+    "testRunner": "jest-circus/runner",
+    "testEnvironment": "node",
+    "setupFilesAfterEnv": [
+      "<rootDir>/tests/setupTests.js"
+    ],
+    "coveragePathIgnorePatterns": [
+      "/node_modules/"
+    ]
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "argon2": "^0.28.3",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "db-migrate-mysql": "^2.2.0",
+    "dotenv": "^11.0.0",
+    "express": "^4.17.2",
+    "handlebars": "^4.7.7",
+    "jsonwebtoken": "^8.5.1",
+    "multer": "^1.4.4",
+    "mysql2": "^2.3.3",
+    "nodemailer": "^6.7.2",
+    "nodemailer-express-handlebars": "^4.0.0"
+  },
+  "devDependencies": {
+    "babel-eslint": "^10.1.0",
+    "db-migrate": "^0.11.13",
+    "eslint": "^7.32.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-jest": "^25.3.4",
+    "eslint-plugin-prettier": "^4.0.0",
+    "jest": "^27.4.7",
+    "jest-circus": "^27.4.6",
+    "nodemon": "^2.0.15",
+    "prettier": "^2.5.1",
+    "supertest": "^6.2.1"
+  }
 }
