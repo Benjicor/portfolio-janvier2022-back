@@ -1,7 +1,7 @@
 const request = require("supertest");
 const { query } = require("../../db-connection");
 // const app = require("../../src/app");
-const app = require("../../server");
+const app = require("../../src/server");
 
 const userPayload = {
   firstname: "Benjamin",
