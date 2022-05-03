@@ -1,7 +1,8 @@
 const authRouter = require("express").Router();
 const { AuthController, UserController } = require("../controllers");
 
-// authRouter.get("/", AuthController.verifyAccessToken, UserController.getUserById);
+// GET
+authRouter.get("/logOut", AuthController.verifyAccessToken, AuthController.logOut);
 
 // POST
 authRouter.post("/connect", AuthController.connect, AuthController.createAccessToken);

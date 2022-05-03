@@ -25,6 +25,14 @@ const connect = async (req, res, next) => {
   }
 };
 
+const logOut = (req, res) => {
+  if (req.cookies.token) {
+    res.clearCookie("token").clearCookie("id").sendStatus(200);
+  } else {
+    res.status(400).send("Une erreur est survenue");
+  }
+};
+
 const createAccessToken = async (req, res) => {
   const id = req.userId;
   const token = jwt.sign({ id }, ACCESS_JWT_SECRET, {
@@ -35,7 +43,12 @@ const createAccessToken = async (req, res) => {
     .status(200)
     .cookie("token", token, {
       httpOnly: true,
-      maxAge: 900000,
+      maxAge: 3600000,
+      secure: "false" === "true",
+      sameSite: "lax",
+    })
+    .cookie("id", id, {
+      maxAge: 3600000,
       secure: "false" === "true",
       sameSite: "lax",
     })
@@ -48,6 +61,7 @@ const verifyAccessToken = async (req, res, next) => {
     jwt.verify(token, ACCESS_JWT_SECRET, (err, decoded) => {
       if (err) {
         res.clearCookie("token");
+        res.clearCookie("id");
         res.sendStatus(403);
       } else {
         req.user = decoded;
@@ -56,12 +70,14 @@ const verifyAccessToken = async (req, res, next) => {
     });
   } else {
     res.clearCookie("token");
+    res.clearCookie("id");
     res.status(403).send("Accès non autorisé");
   }
 };
 
 module.exports = {
   connect,
+  logOut,
   createAccessToken,
   verifyAccessToken,
 };

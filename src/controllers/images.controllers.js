@@ -15,7 +15,7 @@ const findMany = async (req, res) => {
 const findOneById = async (req, res) => {
   try {
     const { id } = req.params;
-    const [[results]] = await Image.findOneById(id);
+    const [results] = await Image.findImagesByFilesId(id);
     if (!results) return res.status(404).send();
     return res.json(results);
   } catch (err) {
