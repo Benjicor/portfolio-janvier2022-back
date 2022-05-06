@@ -2,6 +2,8 @@ require("dotenv").config();
 const jwt = require("jsonwebtoken");
 const { User } = require("../models");
 
+/* Affectation de déstructuration. Il s'agit d'un moyen d'extraire 
+des données de tableaux ou d'objets dans des variables distinctes. */
 const { ACCESS_JWT_SECRET } = process.env;
 
 // Méthode qui permet de vérifier que l'email existe et que le mot de passe est valide lors de la connexion
