@@ -1,4 +1,6 @@
 const mainRouter = require("express").Router();
+
+/* Importation des routes à partir des autres fichiers. */
 const usersRouter = require("./users.routes");
 const authRouter = require("./auth.routes");
 const filesRouter = require("./files.routes");

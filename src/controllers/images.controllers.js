@@ -1,4 +1,6 @@
+/* Importation du module multer. */
 const multer = require("multer");
+
 const { Image } = require("../models");
 
 // Méthode qui permet de recuperer toutes les images
