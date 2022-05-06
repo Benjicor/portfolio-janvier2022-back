@@ -28,7 +28,6 @@ describe("Users API Endpoint", () => {
   describe("Create a new user with valid value", () => {
     it("POST /api/users/ and should obtain { id:1, firstname: 'Xa', lastname: 'GE', email: 'test@gmail.com', ...}", async () => {
       const res = await request(app).post("/api/users/").send(userPayload);
-      // console.log(res);
       expect(res.statusCode).toBe(201);
     });
   });
