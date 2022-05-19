@@ -4,7 +4,7 @@ const { User } = require("../models");
 
 /* Affectation de déstructuration. Il s'agit d'un moyen d'extraire 
 des données de tableaux ou d'objets dans des variables distinctes. */
-const { ACCESS_JWT_SECRET } = process.env;
+const { ACCESS_JWT_SECRET, REFRESH_JWT_SECRET } = process.env;
 
 // Méthode qui permet de vérifier que l'email existe et que le mot de passe est valide lors de la connexion
 const connect = async (req, res, next) => {
@@ -27,6 +27,7 @@ const connect = async (req, res, next) => {
   }
 };
 
+// Méthode qui permet d'effacer les cookies et envoyer un code d'état
 const logOut = (req, res) => {
   if (req.cookies.token) {
     res.clearCookie("token").clearCookie("id").sendStatus(200);
@@ -35,6 +36,7 @@ const logOut = (req, res) => {
   }
 };
 
+// Méthode qui permet de créer un jeton JWT et le placer comme cookie sur la réponse.
 const createAccessToken = async (req, res) => {
   const id = req.userId;
   const token = jwt.sign({ id }, ACCESS_JWT_SECRET, {
@@ -57,6 +59,7 @@ const createAccessToken = async (req, res) => {
     .json({ id });
 };
 
+// Méthode qui permet de vérifier si l'utilisateur a un jeton d'accès valide et, si c'est le cas, ajoute le jeton décodé à la demande.
 const verifyAccessToken = async (req, res, next) => {
   const { token } = req.cookies;
   if (token) {
@@ -77,9 +80,32 @@ const verifyAccessToken = async (req, res, next) => {
   }
 };
 
+const createRefreshToken = async (req, res) => {
+  const id = req.userId;
+  const token = jwt.sign({ id }, REFRESH_JWT_SECRET, {
+    expiresIn: "60m",
+  });
+
+  res
+    .status(200)
+    .cookie("token", token, {
+      httpOnly: true,
+      maxAge: 3600000,
+      secure: "false" === "true",
+      sameSite: "lax",
+    })
+    .cookie("id", id, {
+      maxAge: 3600000,
+      secure: "false" === "true",
+      sameSite: "lax",
+    })
+    .json({ id });
+};
+
 module.exports = {
   connect,
   logOut,
   createAccessToken,
   verifyAccessToken,
+  createRefreshToken,
 };
