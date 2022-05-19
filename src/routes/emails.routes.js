@@ -130,7 +130,7 @@ emailRouter.post("/hbs-and-file", async (req, res) => {
   const mailOptions = {
     from: email,
     to: SENDER_EMAIL_ADDRESS,
-    // cc: 'Email en copie'
+    cc: email,
     // bcc: 'Email en copie cachée'
     subject: `Bonjour je suis ${firstname} ${lastname} et vous contact depuis votre Portfolio`, // Envoie d'email avec une template hbs
     // text: "C'est juste un test",
@@ -179,7 +179,7 @@ emailRouter.post("/hbs-and-file", async (req, res) => {
 
   try {
     await transport.sendMail(mailOptions);
-    res.send("Email envoyé avec succés !!!");
+    res.send("Email envoyé avec succés");
   } catch (err) {
     res.status(500).send(err);
   }
