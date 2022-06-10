@@ -7,6 +7,6 @@ authRouter.get("/logOut", AuthController.verifyAccessToken, AuthController.logOu
 // POST
 authRouter.post("/connect", AuthController.connect, AuthController.createAccessToken);
 authRouter.post("/verifyCredentials", UserController.verifyCredentials);
-authRouter.post("/refreshToken", AuthController.verifyAccessToken, AuthController.createRefreshToken);
+// authRouter.post("/refreshToken", AuthController.verifyAccessToken, AuthController.createRefreshToken);
 
 module.exports = authRouter;
