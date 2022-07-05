@@ -36,3 +36,4 @@ pnpm-lock.yaml
 
 # vscode
 .vscode
+.code-workspace
