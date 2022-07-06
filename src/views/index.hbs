@@ -1,0 +1,30 @@
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <style>
+      * { background-color: #adadad; text-align: center} h1 { color: #ff1616; text-decoration: underline; } ul { display: flex; color: #e5e5e5;
+      list-style: none; } img { text-align: center; width: 50%; height: auto; border: 2px solid #08d8fd; border-radius: 10px; box-shadow: 10px 10px
+      5px 0px rgba(8,216,253,0.34); }
+    </style>
+  </head>
+
+  <body>
+    <h1>Bonjour je suis {{firstname}} {{lastname}}</h1>
+    <ul>
+      <li>Mon adresse email est la suivante : {{email}}</li>
+    </ul>
+    <ul>
+      <li>Je vous contact pour : {{subject}}</li>
+    </ul>
+    <ul>
+      <li>Voici mon message : {{message}}</li>
+    </ul>
+    <img src="cid:{{src}}" alt={{alt}} />
+    <a href={{link}}>{{linkName}}</a>
+  </body>
+
+</html>
